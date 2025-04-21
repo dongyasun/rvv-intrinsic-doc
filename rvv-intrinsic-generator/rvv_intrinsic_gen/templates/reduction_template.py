@@ -53,7 +53,7 @@ def render(G,
       if decorator.flags & ExtraAttr.HAS_FRM and ("max" in op or "min" in op):
         continue
 
-      if data_type == "float":
+      if data_type == "float" or data_type == "bfloat":
         args["OP"] = "f" + op
       if data_type == "uint" and op in ["redmax", "redmin", "wredsum"]:
         args["OP"] = args["OP"] + "u"
@@ -77,6 +77,34 @@ def render(G,
           inst_type,
           extra_attr=ExtraAttr.REDUCE,
           required_ext=required_ext_list)
+      
+      if(data_type == "bfloat"):
+        pref = "xl_"
+        if "w" in op:
+          G.func(
+              inst_info,
+              name=pref + "{OP}_vs_{TYPE}{SEW}m{LMUL}_f{WSEW}m1".format_map(args)
+              + decorator.func_suffix,
+              return_type=s,
+              **decorator.mask_args(type_helper.m, s),
+              **decorator.dest_args(s),
+              vs2=type_helper.v,
+              vs1=s,
+              **decorator.extra_csr_args(type_helper.uint),
+              vl=type_helper.size_t)
+        else:
+          G.func(
+              inst_info,
+              name=pref + "{OP}_vs_{TYPE}{SEW}m{LMUL}_{TYPE}{SEW}m1".format_map(args) +
+              decorator.func_suffix,
+              return_type=s,
+              **decorator.mask_args(type_helper.m, s),
+              **decorator.dest_args(s),
+              vs2=type_helper.v,
+              vs1=s,
+              **decorator.extra_csr_args(type_helper.uint),
+              vl=type_helper.size_t)
+
       if (data_type == "float" and
           op in ["redosum","redusum","redmax","redmin","wredosum","wredusum"])\
          or ("int" in data_type):

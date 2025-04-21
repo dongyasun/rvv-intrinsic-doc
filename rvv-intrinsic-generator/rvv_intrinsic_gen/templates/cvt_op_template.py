@@ -58,7 +58,10 @@ def render(G,
     else:
       convert_set = [["int", "x", "float", "f"], ["uint", "xu", "float", "f"],
                      ["float", "f", "int", "x"], ["float", "f", "uint", "xu"],
-                     ["float", "f", "float", "f"]]
+                     ["float", "f", "float", "f"],
+                     ["int", "x", "bfloat", "f"], ["uint", "xu", "bfloat", "f"],
+                     ["bfloat", "f", "int", "x"], ["bfloat", "f", "uint", "xu"],
+                     ["bfloat", "f", "bfloat", "f"]]
     for args in prod(
         OP=op_list, SEW=sew_list, TYPES=convert_set, LMUL=lmul_list):
       assert args["TYPES"] is not None
@@ -108,7 +111,10 @@ def render(G,
       elif args["TYPES1"] == "x":
         args["D_TYPE"] = "i"
       else:
-        args["D_TYPE"] = "f"
+        if args["TYPES0"] == "bfloat":
+          args["D_TYPE"] = "bf"
+        else:
+          args["D_TYPE"] = "f"
 
       if op == "wcvt" and \
          (args["TYPES0"] == "uint" and args["TYPES2"] == "uint"):
@@ -135,15 +141,21 @@ def render(G,
       if not type_helper.valid_vtype(dst_type) or\
          not type_helper.valid_vtype(src_type):
         continue
+
+      if "bfloat" in args["TYPES0"] or "bfloat" in args["TYPES2"]:
+        pref = "xl_"
+      else:
+        pref = ""
+
       if type_list == "bfloat16":
-        if "ncvt" in args["OP"]:
+        if args["OP"] == "ncvtbf16":
           func_name = "{OP}_f_f_w_bf{LSEW}m{LLMUL}".format_map(args)
-        elif "wcvt" in args["OP"]:
+        elif args["OP"] == "wcvtbf16":
           func_name = "{OP}_f_f_v_f{LSEW}m{LLMUL}".format_map(args)
         else:
           assert False, "Unhandled instruction for bfloat16 type"
       else:
-        func_name = \
+        func_name =pref + \
           "{OP}_{TYPES1}_{TYPES3}_{MIDDLE}_{D_TYPE}{LSEW}m{LLMUL}".format_map\
           (args)
       G.func(
@@ -163,8 +175,8 @@ def render(G,
         continue
 
       # BFloat16 converts do not have `_rod`/`_rtz` instructions
-      if type_list == "bfloat16":
-        continue
+      # if type_list == "bfloat16":
+      #   continue
 
       if args["TYPES1"] != args["TYPES3"] and args["TYPES3"] == "f":
         args["OP"] = args["OP"] + "_rtz"
@@ -174,7 +186,7 @@ def render(G,
             InstType.VV,
             extra_attr=extra_attr,
             required_ext=required_ext_list)
-        func_name =\
+        func_name =pref + \
           "{OP}_{TYPES1}_{TYPES3}_{MIDDLE}_{D_TYPE}{LSEW}m{LLMUL}".format_map\
           (args)
         G.func(
@@ -191,7 +203,7 @@ def render(G,
         inst_info = \
           InstInfo.get(args, decorator, InstType.VV, extra_attr=extra_attr,
                        required_ext = required_ext_list)
-        func_name = \
+        func_name = pref + \
           "{OP}_{TYPES1}_{TYPES3}_{MIDDLE}_{D_TYPE}{LSEW}m{LLMUL}".format_map\
           (args)
         G.func(

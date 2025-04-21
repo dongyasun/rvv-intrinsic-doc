@@ -59,7 +59,7 @@ def render(G,
         continue
 
       if op2 == "s":
-        if data_type == "float" and op != "rgather":
+        if (data_type == "float" or data_type == "bfloat") and op != "rgather":
           args["OP2"] = "f"
         else:
           args["OP2"] = "x"
@@ -117,6 +117,11 @@ def render(G,
         inst_info = inst_info_vf
       else:
         raise ValueError("Unknown op2 type.")
+      
+      if (data_type == "bfloat"):
+        pref = "xl_"
+      else:
+        pref = ""
 
       if op in ["ssra", "sra", "ssrl", "srl", "sll"]:
         if args["OP2"] == "v":
@@ -147,7 +152,7 @@ def render(G,
       elif op in ["neg", "fneg"]:
         G.func(
             inst_info_v,
-            name="{OP}_v_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_v_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.mask_args(type_helper.m, type_helper.v),
@@ -160,7 +165,7 @@ def render(G,
               InstInfo.get(
                   args, decorator, InstType.VVV,
                   required_ext=required_ext_list),
-              name="{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+              name=pref + "{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
               decorator.func_suffix,
               return_type=type_helper.v,
               **decorator.mask_args(type_helper.m, type_helper.v),
@@ -173,7 +178,7 @@ def render(G,
               InstInfo.get(
                   args, decorator, InstType.VVV,
                   required_ext=required_ext_list),
-              name="{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+              name=pref + "{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
               decorator.func_suffix,
               return_type=type_helper.v,
               **decorator.mask_args(type_helper.m, type_helper.v),
@@ -185,7 +190,7 @@ def render(G,
         if op2 == "v":
           G.func(
               inst_info,
-              name="{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+              name=pref + "{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
               decorator.func_suffix,
               return_type=type_helper.v,
               **decorator.mask_args(type_helper.m, type_helper.v),
@@ -197,7 +202,7 @@ def render(G,
         else:  # vx, vf
           G.func(
               inst_info,
-              name="{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+              name=pref + "{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}".format_map(args) +
               decorator.func_suffix,
               return_type=type_helper.v,
               **decorator.mask_args(type_helper.m, type_helper.v),

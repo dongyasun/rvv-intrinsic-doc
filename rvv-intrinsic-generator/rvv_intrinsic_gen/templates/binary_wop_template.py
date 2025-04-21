@@ -70,7 +70,7 @@ def render(G,
 
       args["LMUL"] = args["WLMUL"]
       args["SEW"] = args["WSEW"]
-      if data_type == "float":
+      if data_type == "float" or data_type == "bfloat":
         args["SCALAR"] = "f"
         inst_info_wws = inst_info_wwf
         inst_info_wvs = inst_info_wvf
@@ -78,6 +78,11 @@ def render(G,
         args["SCALAR"] = "x"
         inst_info_wws = inst_info_wwx
         inst_info_wvs = inst_info_wvx
+      
+      if data_type == "bfloat":
+        pref = "xl_"
+      else:
+        pref = ""
 
       if op == "wmulsu":
         if data_type != "int":
@@ -105,9 +110,11 @@ def render(G,
               rs1=type_helper.uis,
               vl=type_helper.size_t)
       else:
+        if data_type == "bfloat":
+          args["TYPE"] = "float"
         G.func(
             inst_info_wvv,
-            name="{OP}_vv_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_vv_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.wv,
             **decorator.mask_args(type_helper.m, type_helper.wv),
@@ -118,7 +125,7 @@ def render(G,
             vl=type_helper.size_t)
         G.func(
             inst_info_wvs,
-            name="{OP}_v{SCALAR}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_v{SCALAR}_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.wv,
             **decorator.mask_args(type_helper.m, type_helper.wv),
@@ -130,9 +137,11 @@ def render(G,
 
       if "add" in op or "sub" in op:
         # integer/floating wadd and wsub support "2*sew = 2*sew op SEW"
+        if data_type == "bfloat":
+          args["TYPE"] = "float"        
         G.func(
             inst_info_wwv,
-            name="{OP}_wv_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_wv_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.wv,
             **decorator.mask_args(type_helper.m, type_helper.wv),
@@ -143,7 +152,7 @@ def render(G,
             vl=type_helper.size_t)
         G.func(
             inst_info_wws,
-            name="{OP}_w{SCALAR}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_w{SCALAR}_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.wv,
             **decorator.mask_args(type_helper.m, type_helper.wv),

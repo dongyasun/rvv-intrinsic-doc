@@ -7,6 +7,12 @@
 [,c]
 ----
 // masked functions
+vbfloat16mf4_t __riscv_vle16(vbool64_t vm, const __bf16 *rs1, size_t vl);
+vbfloat16mf2_t __riscv_vle16(vbool32_t vm, const __bf16 *rs1, size_t vl);
+vbfloat16m1_t __riscv_vle16(vbool16_t vm, const __bf16 *rs1, size_t vl);
+vbfloat16m2_t __riscv_vle16(vbool8_t vm, const __bf16 *rs1, size_t vl);
+vbfloat16m4_t __riscv_vle16(vbool4_t vm, const __bf16 *rs1, size_t vl);
+vbfloat16m8_t __riscv_vle16(vbool2_t vm, const __bf16 *rs1, size_t vl);
 vfloat16mf4_t __riscv_vle16(vbool64_t vm, const _Float16 *rs1, size_t vl);
 vfloat16mf2_t __riscv_vle16(vbool32_t vm, const _Float16 *rs1, size_t vl);
 vfloat16m1_t __riscv_vle16(vbool16_t vm, const _Float16 *rs1, size_t vl);
@@ -73,6 +79,12 @@ vuint64m8_t __riscv_vle64(vbool8_t vm, const uint64_t *rs1, size_t vl);
 
 [,c]
 ----
+void __riscv_vse16(__bf16 *rs1, vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vse16(__bf16 *rs1, vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vse16(__bf16 *rs1, vbfloat16m1_t vs3, size_t vl);
+void __riscv_vse16(__bf16 *rs1, vbfloat16m2_t vs3, size_t vl);
+void __riscv_vse16(__bf16 *rs1, vbfloat16m4_t vs3, size_t vl);
+void __riscv_vse16(__bf16 *rs1, vbfloat16m8_t vs3, size_t vl);
 void __riscv_vse16(_Float16 *rs1, vfloat16mf4_t vs3, size_t vl);
 void __riscv_vse16(_Float16 *rs1, vfloat16mf2_t vs3, size_t vl);
 void __riscv_vse16(_Float16 *rs1, vfloat16m1_t vs3, size_t vl);
@@ -133,6 +145,12 @@ void __riscv_vse64(uint64_t *rs1, vuint64m2_t vs3, size_t vl);
 void __riscv_vse64(uint64_t *rs1, vuint64m4_t vs3, size_t vl);
 void __riscv_vse64(uint64_t *rs1, vuint64m8_t vs3, size_t vl);
 // masked functions
+void __riscv_vse16(vbool64_t vm, __bf16 *rs1, vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vse16(vbool32_t vm, __bf16 *rs1, vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vse16(vbool16_t vm, __bf16 *rs1, vbfloat16m1_t vs3, size_t vl);
+void __riscv_vse16(vbool8_t vm, __bf16 *rs1, vbfloat16m2_t vs3, size_t vl);
+void __riscv_vse16(vbool4_t vm, __bf16 *rs1, vbfloat16m4_t vs3, size_t vl);
+void __riscv_vse16(vbool2_t vm, __bf16 *rs1, vbfloat16m8_t vs3, size_t vl);
 void __riscv_vse16(vbool64_t vm, _Float16 *rs1, vfloat16mf4_t vs3, size_t vl);
 void __riscv_vse16(vbool32_t vm, _Float16 *rs1, vfloat16mf2_t vs3, size_t vl);
 void __riscv_vse16(vbool16_t vm, _Float16 *rs1, vfloat16m1_t vs3, size_t vl);
@@ -214,6 +232,18 @@ void __riscv_vsm(uint8_t *rs1, vbool64_t vs3, size_t vl);
 [,c]
 ----
 // masked functions
+vbfloat16mf4_t __riscv_vlse16(vbool64_t vm, const __bf16 *rs1, ptrdiff_t rs2,
+                              size_t vl);
+vbfloat16mf2_t __riscv_vlse16(vbool32_t vm, const __bf16 *rs1, ptrdiff_t rs2,
+                              size_t vl);
+vbfloat16m1_t __riscv_vlse16(vbool16_t vm, const __bf16 *rs1, ptrdiff_t rs2,
+                             size_t vl);
+vbfloat16m2_t __riscv_vlse16(vbool8_t vm, const __bf16 *rs1, ptrdiff_t rs2,
+                             size_t vl);
+vbfloat16m4_t __riscv_vlse16(vbool4_t vm, const __bf16 *rs1, ptrdiff_t rs2,
+                             size_t vl);
+vbfloat16m8_t __riscv_vlse16(vbool2_t vm, const __bf16 *rs1, ptrdiff_t rs2,
+                             size_t vl);
 vfloat16mf4_t __riscv_vlse16(vbool64_t vm, const _Float16 *rs1, ptrdiff_t rs2,
                              size_t vl);
 vfloat16mf2_t __riscv_vlse16(vbool32_t vm, const _Float16 *rs1, ptrdiff_t rs2,
@@ -339,6 +369,12 @@ vuint64m8_t __riscv_vlse64(vbool8_t vm, const uint64_t *rs1, ptrdiff_t rs2,
 
 [,c]
 ----
+void __riscv_vsse16(__bf16 *rs1, ptrdiff_t rs2, vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsse16(__bf16 *rs1, ptrdiff_t rs2, vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsse16(__bf16 *rs1, ptrdiff_t rs2, vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsse16(__bf16 *rs1, ptrdiff_t rs2, vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsse16(__bf16 *rs1, ptrdiff_t rs2, vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsse16(__bf16 *rs1, ptrdiff_t rs2, vbfloat16m8_t vs3, size_t vl);
 void __riscv_vsse16(_Float16 *rs1, ptrdiff_t rs2, vfloat16mf4_t vs3, size_t vl);
 void __riscv_vsse16(_Float16 *rs1, ptrdiff_t rs2, vfloat16mf2_t vs3, size_t vl);
 void __riscv_vsse16(_Float16 *rs1, ptrdiff_t rs2, vfloat16m1_t vs3, size_t vl);
@@ -399,6 +435,18 @@ void __riscv_vsse64(uint64_t *rs1, ptrdiff_t rs2, vuint64m2_t vs3, size_t vl);
 void __riscv_vsse64(uint64_t *rs1, ptrdiff_t rs2, vuint64m4_t vs3, size_t vl);
 void __riscv_vsse64(uint64_t *rs1, ptrdiff_t rs2, vuint64m8_t vs3, size_t vl);
 // masked functions
+void __riscv_vsse16(vbool64_t vm, __bf16 *rs1, ptrdiff_t rs2,
+                    vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsse16(vbool32_t vm, __bf16 *rs1, ptrdiff_t rs2,
+                    vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsse16(vbool16_t vm, __bf16 *rs1, ptrdiff_t rs2, vbfloat16m1_t vs3,
+                    size_t vl);
+void __riscv_vsse16(vbool8_t vm, __bf16 *rs1, ptrdiff_t rs2, vbfloat16m2_t vs3,
+                    size_t vl);
+void __riscv_vsse16(vbool4_t vm, __bf16 *rs1, ptrdiff_t rs2, vbfloat16m4_t vs3,
+                    size_t vl);
+void __riscv_vsse16(vbool2_t vm, __bf16 *rs1, ptrdiff_t rs2, vbfloat16m8_t vs3,
+                    size_t vl);
 void __riscv_vsse16(vbool64_t vm, _Float16 *rs1, ptrdiff_t rs2,
                     vfloat16mf4_t vs3, size_t vl);
 void __riscv_vsse16(vbool32_t vm, _Float16 *rs1, ptrdiff_t rs2,
@@ -524,6 +572,48 @@ void __riscv_vsse64(vbool8_t vm, uint64_t *rs1, ptrdiff_t rs2, vuint64m8_t vs3,
 
 [,c]
 ----
+vbfloat16mf4_t __riscv_vloxei8(const __bf16 *rs1, vuint8mf8_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vloxei8(const __bf16 *rs1, vuint8mf4_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vloxei8(const __bf16 *rs1, vuint8mf2_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vloxei8(const __bf16 *rs1, vuint8m1_t rs2, size_t vl);
+vbfloat16m4_t __riscv_vloxei8(const __bf16 *rs1, vuint8m2_t rs2, size_t vl);
+vbfloat16m8_t __riscv_vloxei8(const __bf16 *rs1, vuint8m4_t rs2, size_t vl);
+vbfloat16mf4_t __riscv_vloxei16(const __bf16 *rs1, vuint16mf4_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vloxei16(const __bf16 *rs1, vuint16mf2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vloxei16(const __bf16 *rs1, vuint16m1_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vloxei16(const __bf16 *rs1, vuint16m2_t rs2, size_t vl);
+vbfloat16m4_t __riscv_vloxei16(const __bf16 *rs1, vuint16m4_t rs2, size_t vl);
+vbfloat16m8_t __riscv_vloxei16(const __bf16 *rs1, vuint16m8_t rs2, size_t vl);
+vbfloat16mf4_t __riscv_vloxei32(const __bf16 *rs1, vuint32mf2_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vloxei32(const __bf16 *rs1, vuint32m1_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vloxei32(const __bf16 *rs1, vuint32m2_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vloxei32(const __bf16 *rs1, vuint32m4_t rs2, size_t vl);
+vbfloat16m4_t __riscv_vloxei32(const __bf16 *rs1, vuint32m8_t rs2, size_t vl);
+vbfloat16mf4_t __riscv_vloxei64(const __bf16 *rs1, vuint64m1_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vloxei64(const __bf16 *rs1, vuint64m2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vloxei64(const __bf16 *rs1, vuint64m4_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vloxei64(const __bf16 *rs1, vuint64m8_t rs2, size_t vl);
+vbfloat16mf4_t __riscv_vluxei8(const __bf16 *rs1, vuint8mf8_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vluxei8(const __bf16 *rs1, vuint8mf4_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vluxei8(const __bf16 *rs1, vuint8mf2_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vluxei8(const __bf16 *rs1, vuint8m1_t rs2, size_t vl);
+vbfloat16m4_t __riscv_vluxei8(const __bf16 *rs1, vuint8m2_t rs2, size_t vl);
+vbfloat16m8_t __riscv_vluxei8(const __bf16 *rs1, vuint8m4_t rs2, size_t vl);
+vbfloat16mf4_t __riscv_vluxei16(const __bf16 *rs1, vuint16mf4_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vluxei16(const __bf16 *rs1, vuint16mf2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vluxei16(const __bf16 *rs1, vuint16m1_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vluxei16(const __bf16 *rs1, vuint16m2_t rs2, size_t vl);
+vbfloat16m4_t __riscv_vluxei16(const __bf16 *rs1, vuint16m4_t rs2, size_t vl);
+vbfloat16m8_t __riscv_vluxei16(const __bf16 *rs1, vuint16m8_t rs2, size_t vl);
+vbfloat16mf4_t __riscv_vluxei32(const __bf16 *rs1, vuint32mf2_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vluxei32(const __bf16 *rs1, vuint32m1_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vluxei32(const __bf16 *rs1, vuint32m2_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vluxei32(const __bf16 *rs1, vuint32m4_t rs2, size_t vl);
+vbfloat16m4_t __riscv_vluxei32(const __bf16 *rs1, vuint32m8_t rs2, size_t vl);
+vbfloat16mf4_t __riscv_vluxei64(const __bf16 *rs1, vuint64m1_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vluxei64(const __bf16 *rs1, vuint64m2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vluxei64(const __bf16 *rs1, vuint64m4_t rs2, size_t vl);
+vbfloat16m2_t __riscv_vluxei64(const __bf16 *rs1, vuint64m8_t rs2, size_t vl);
 vfloat16mf4_t __riscv_vloxei8(const _Float16 *rs1, vuint8mf8_t rs2, size_t vl);
 vfloat16mf2_t __riscv_vloxei8(const _Float16 *rs1, vuint8mf4_t rs2, size_t vl);
 vfloat16m1_t __riscv_vloxei8(const _Float16 *rs1, vuint8mf2_t rs2, size_t vl);
@@ -955,6 +1045,90 @@ vuint64m2_t __riscv_vluxei64(const uint64_t *rs1, vuint64m2_t rs2, size_t vl);
 vuint64m4_t __riscv_vluxei64(const uint64_t *rs1, vuint64m4_t rs2, size_t vl);
 vuint64m8_t __riscv_vluxei64(const uint64_t *rs1, vuint64m8_t rs2, size_t vl);
 // masked functions
+vbfloat16mf4_t __riscv_vloxei8(vbool64_t vm, const __bf16 *rs1, vuint8mf8_t rs2,
+                               size_t vl);
+vbfloat16mf2_t __riscv_vloxei8(vbool32_t vm, const __bf16 *rs1, vuint8mf4_t rs2,
+                               size_t vl);
+vbfloat16m1_t __riscv_vloxei8(vbool16_t vm, const __bf16 *rs1, vuint8mf2_t rs2,
+                              size_t vl);
+vbfloat16m2_t __riscv_vloxei8(vbool8_t vm, const __bf16 *rs1, vuint8m1_t rs2,
+                              size_t vl);
+vbfloat16m4_t __riscv_vloxei8(vbool4_t vm, const __bf16 *rs1, vuint8m2_t rs2,
+                              size_t vl);
+vbfloat16m8_t __riscv_vloxei8(vbool2_t vm, const __bf16 *rs1, vuint8m4_t rs2,
+                              size_t vl);
+vbfloat16mf4_t __riscv_vloxei16(vbool64_t vm, const __bf16 *rs1,
+                                vuint16mf4_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vloxei16(vbool32_t vm, const __bf16 *rs1,
+                                vuint16mf2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vloxei16(vbool16_t vm, const __bf16 *rs1, vuint16m1_t rs2,
+                               size_t vl);
+vbfloat16m2_t __riscv_vloxei16(vbool8_t vm, const __bf16 *rs1, vuint16m2_t rs2,
+                               size_t vl);
+vbfloat16m4_t __riscv_vloxei16(vbool4_t vm, const __bf16 *rs1, vuint16m4_t rs2,
+                               size_t vl);
+vbfloat16m8_t __riscv_vloxei16(vbool2_t vm, const __bf16 *rs1, vuint16m8_t rs2,
+                               size_t vl);
+vbfloat16mf4_t __riscv_vloxei32(vbool64_t vm, const __bf16 *rs1,
+                                vuint32mf2_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vloxei32(vbool32_t vm, const __bf16 *rs1,
+                                vuint32m1_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vloxei32(vbool16_t vm, const __bf16 *rs1, vuint32m2_t rs2,
+                               size_t vl);
+vbfloat16m2_t __riscv_vloxei32(vbool8_t vm, const __bf16 *rs1, vuint32m4_t rs2,
+                               size_t vl);
+vbfloat16m4_t __riscv_vloxei32(vbool4_t vm, const __bf16 *rs1, vuint32m8_t rs2,
+                               size_t vl);
+vbfloat16mf4_t __riscv_vloxei64(vbool64_t vm, const __bf16 *rs1,
+                                vuint64m1_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vloxei64(vbool32_t vm, const __bf16 *rs1,
+                                vuint64m2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vloxei64(vbool16_t vm, const __bf16 *rs1, vuint64m4_t rs2,
+                               size_t vl);
+vbfloat16m2_t __riscv_vloxei64(vbool8_t vm, const __bf16 *rs1, vuint64m8_t rs2,
+                               size_t vl);
+vbfloat16mf4_t __riscv_vluxei8(vbool64_t vm, const __bf16 *rs1, vuint8mf8_t rs2,
+                               size_t vl);
+vbfloat16mf2_t __riscv_vluxei8(vbool32_t vm, const __bf16 *rs1, vuint8mf4_t rs2,
+                               size_t vl);
+vbfloat16m1_t __riscv_vluxei8(vbool16_t vm, const __bf16 *rs1, vuint8mf2_t rs2,
+                              size_t vl);
+vbfloat16m2_t __riscv_vluxei8(vbool8_t vm, const __bf16 *rs1, vuint8m1_t rs2,
+                              size_t vl);
+vbfloat16m4_t __riscv_vluxei8(vbool4_t vm, const __bf16 *rs1, vuint8m2_t rs2,
+                              size_t vl);
+vbfloat16m8_t __riscv_vluxei8(vbool2_t vm, const __bf16 *rs1, vuint8m4_t rs2,
+                              size_t vl);
+vbfloat16mf4_t __riscv_vluxei16(vbool64_t vm, const __bf16 *rs1,
+                                vuint16mf4_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vluxei16(vbool32_t vm, const __bf16 *rs1,
+                                vuint16mf2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vluxei16(vbool16_t vm, const __bf16 *rs1, vuint16m1_t rs2,
+                               size_t vl);
+vbfloat16m2_t __riscv_vluxei16(vbool8_t vm, const __bf16 *rs1, vuint16m2_t rs2,
+                               size_t vl);
+vbfloat16m4_t __riscv_vluxei16(vbool4_t vm, const __bf16 *rs1, vuint16m4_t rs2,
+                               size_t vl);
+vbfloat16m8_t __riscv_vluxei16(vbool2_t vm, const __bf16 *rs1, vuint16m8_t rs2,
+                               size_t vl);
+vbfloat16mf4_t __riscv_vluxei32(vbool64_t vm, const __bf16 *rs1,
+                                vuint32mf2_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vluxei32(vbool32_t vm, const __bf16 *rs1,
+                                vuint32m1_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vluxei32(vbool16_t vm, const __bf16 *rs1, vuint32m2_t rs2,
+                               size_t vl);
+vbfloat16m2_t __riscv_vluxei32(vbool8_t vm, const __bf16 *rs1, vuint32m4_t rs2,
+                               size_t vl);
+vbfloat16m4_t __riscv_vluxei32(vbool4_t vm, const __bf16 *rs1, vuint32m8_t rs2,
+                               size_t vl);
+vbfloat16mf4_t __riscv_vluxei64(vbool64_t vm, const __bf16 *rs1,
+                                vuint64m1_t rs2, size_t vl);
+vbfloat16mf2_t __riscv_vluxei64(vbool32_t vm, const __bf16 *rs1,
+                                vuint64m2_t rs2, size_t vl);
+vbfloat16m1_t __riscv_vluxei64(vbool16_t vm, const __bf16 *rs1, vuint64m4_t rs2,
+                               size_t vl);
+vbfloat16m2_t __riscv_vluxei64(vbool8_t vm, const __bf16 *rs1, vuint64m8_t rs2,
+                               size_t vl);
 vfloat16mf4_t __riscv_vloxei8(vbool64_t vm, const _Float16 *rs1,
                               vuint8mf8_t rs2, size_t vl);
 vfloat16mf2_t __riscv_vloxei8(vbool32_t vm, const _Float16 *rs1,
@@ -1810,6 +1984,84 @@ vuint64m8_t __riscv_vluxei64(vbool8_t vm, const uint64_t *rs1, vuint64m8_t rs2,
 
 [,c]
 ----
+void __riscv_vsoxei8(__bf16 *rs1, vuint8mf8_t rs2, vbfloat16mf4_t vs3,
+                     size_t vl);
+void __riscv_vsoxei8(__bf16 *rs1, vuint8mf4_t rs2, vbfloat16mf2_t vs3,
+                     size_t vl);
+void __riscv_vsoxei8(__bf16 *rs1, vuint8mf2_t rs2, vbfloat16m1_t vs3,
+                     size_t vl);
+void __riscv_vsoxei8(__bf16 *rs1, vuint8m1_t rs2, vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsoxei8(__bf16 *rs1, vuint8m2_t rs2, vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsoxei8(__bf16 *rs1, vuint8m4_t rs2, vbfloat16m8_t vs3, size_t vl);
+void __riscv_vsoxei16(__bf16 *rs1, vuint16mf4_t rs2, vbfloat16mf4_t vs3,
+                      size_t vl);
+void __riscv_vsoxei16(__bf16 *rs1, vuint16mf2_t rs2, vbfloat16mf2_t vs3,
+                      size_t vl);
+void __riscv_vsoxei16(__bf16 *rs1, vuint16m1_t rs2, vbfloat16m1_t vs3,
+                      size_t vl);
+void __riscv_vsoxei16(__bf16 *rs1, vuint16m2_t rs2, vbfloat16m2_t vs3,
+                      size_t vl);
+void __riscv_vsoxei16(__bf16 *rs1, vuint16m4_t rs2, vbfloat16m4_t vs3,
+                      size_t vl);
+void __riscv_vsoxei16(__bf16 *rs1, vuint16m8_t rs2, vbfloat16m8_t vs3,
+                      size_t vl);
+void __riscv_vsoxei32(__bf16 *rs1, vuint32mf2_t rs2, vbfloat16mf4_t vs3,
+                      size_t vl);
+void __riscv_vsoxei32(__bf16 *rs1, vuint32m1_t rs2, vbfloat16mf2_t vs3,
+                      size_t vl);
+void __riscv_vsoxei32(__bf16 *rs1, vuint32m2_t rs2, vbfloat16m1_t vs3,
+                      size_t vl);
+void __riscv_vsoxei32(__bf16 *rs1, vuint32m4_t rs2, vbfloat16m2_t vs3,
+                      size_t vl);
+void __riscv_vsoxei32(__bf16 *rs1, vuint32m8_t rs2, vbfloat16m4_t vs3,
+                      size_t vl);
+void __riscv_vsoxei64(__bf16 *rs1, vuint64m1_t rs2, vbfloat16mf4_t vs3,
+                      size_t vl);
+void __riscv_vsoxei64(__bf16 *rs1, vuint64m2_t rs2, vbfloat16mf2_t vs3,
+                      size_t vl);
+void __riscv_vsoxei64(__bf16 *rs1, vuint64m4_t rs2, vbfloat16m1_t vs3,
+                      size_t vl);
+void __riscv_vsoxei64(__bf16 *rs1, vuint64m8_t rs2, vbfloat16m2_t vs3,
+                      size_t vl);
+void __riscv_vsuxei8(__bf16 *rs1, vuint8mf8_t rs2, vbfloat16mf4_t vs3,
+                     size_t vl);
+void __riscv_vsuxei8(__bf16 *rs1, vuint8mf4_t rs2, vbfloat16mf2_t vs3,
+                     size_t vl);
+void __riscv_vsuxei8(__bf16 *rs1, vuint8mf2_t rs2, vbfloat16m1_t vs3,
+                     size_t vl);
+void __riscv_vsuxei8(__bf16 *rs1, vuint8m1_t rs2, vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsuxei8(__bf16 *rs1, vuint8m2_t rs2, vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsuxei8(__bf16 *rs1, vuint8m4_t rs2, vbfloat16m8_t vs3, size_t vl);
+void __riscv_vsuxei16(__bf16 *rs1, vuint16mf4_t rs2, vbfloat16mf4_t vs3,
+                      size_t vl);
+void __riscv_vsuxei16(__bf16 *rs1, vuint16mf2_t rs2, vbfloat16mf2_t vs3,
+                      size_t vl);
+void __riscv_vsuxei16(__bf16 *rs1, vuint16m1_t rs2, vbfloat16m1_t vs3,
+                      size_t vl);
+void __riscv_vsuxei16(__bf16 *rs1, vuint16m2_t rs2, vbfloat16m2_t vs3,
+                      size_t vl);
+void __riscv_vsuxei16(__bf16 *rs1, vuint16m4_t rs2, vbfloat16m4_t vs3,
+                      size_t vl);
+void __riscv_vsuxei16(__bf16 *rs1, vuint16m8_t rs2, vbfloat16m8_t vs3,
+                      size_t vl);
+void __riscv_vsuxei32(__bf16 *rs1, vuint32mf2_t rs2, vbfloat16mf4_t vs3,
+                      size_t vl);
+void __riscv_vsuxei32(__bf16 *rs1, vuint32m1_t rs2, vbfloat16mf2_t vs3,
+                      size_t vl);
+void __riscv_vsuxei32(__bf16 *rs1, vuint32m2_t rs2, vbfloat16m1_t vs3,
+                      size_t vl);
+void __riscv_vsuxei32(__bf16 *rs1, vuint32m4_t rs2, vbfloat16m2_t vs3,
+                      size_t vl);
+void __riscv_vsuxei32(__bf16 *rs1, vuint32m8_t rs2, vbfloat16m4_t vs3,
+                      size_t vl);
+void __riscv_vsuxei64(__bf16 *rs1, vuint64m1_t rs2, vbfloat16mf4_t vs3,
+                      size_t vl);
+void __riscv_vsuxei64(__bf16 *rs1, vuint64m2_t rs2, vbfloat16mf2_t vs3,
+                      size_t vl);
+void __riscv_vsuxei64(__bf16 *rs1, vuint64m4_t rs2, vbfloat16m1_t vs3,
+                      size_t vl);
+void __riscv_vsuxei64(__bf16 *rs1, vuint64m8_t rs2, vbfloat16m2_t vs3,
+                      size_t vl);
 void __riscv_vsoxei8(_Float16 *rs1, vuint8mf8_t rs2, vfloat16mf4_t vs3,
                      size_t vl);
 void __riscv_vsoxei8(_Float16 *rs1, vuint8mf4_t rs2, vfloat16mf2_t vs3,
@@ -2453,6 +2705,90 @@ void __riscv_vsuxei64(uint64_t *rs1, vuint64m4_t rs2, vuint64m4_t vs3,
 void __riscv_vsuxei64(uint64_t *rs1, vuint64m8_t rs2, vuint64m8_t vs3,
                       size_t vl);
 // masked functions
+void __riscv_vsoxei8(vbool64_t vm, __bf16 *rs1, vuint8mf8_t rs2,
+                     vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsoxei8(vbool32_t vm, __bf16 *rs1, vuint8mf4_t rs2,
+                     vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsoxei8(vbool16_t vm, __bf16 *rs1, vuint8mf2_t rs2,
+                     vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsoxei8(vbool8_t vm, __bf16 *rs1, vuint8m1_t rs2,
+                     vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsoxei8(vbool4_t vm, __bf16 *rs1, vuint8m2_t rs2,
+                     vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsoxei8(vbool2_t vm, __bf16 *rs1, vuint8m4_t rs2,
+                     vbfloat16m8_t vs3, size_t vl);
+void __riscv_vsoxei16(vbool64_t vm, __bf16 *rs1, vuint16mf4_t rs2,
+                      vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsoxei16(vbool32_t vm, __bf16 *rs1, vuint16mf2_t rs2,
+                      vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsoxei16(vbool16_t vm, __bf16 *rs1, vuint16m1_t rs2,
+                      vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsoxei16(vbool8_t vm, __bf16 *rs1, vuint16m2_t rs2,
+                      vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsoxei16(vbool4_t vm, __bf16 *rs1, vuint16m4_t rs2,
+                      vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsoxei16(vbool2_t vm, __bf16 *rs1, vuint16m8_t rs2,
+                      vbfloat16m8_t vs3, size_t vl);
+void __riscv_vsoxei32(vbool64_t vm, __bf16 *rs1, vuint32mf2_t rs2,
+                      vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsoxei32(vbool32_t vm, __bf16 *rs1, vuint32m1_t rs2,
+                      vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsoxei32(vbool16_t vm, __bf16 *rs1, vuint32m2_t rs2,
+                      vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsoxei32(vbool8_t vm, __bf16 *rs1, vuint32m4_t rs2,
+                      vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsoxei32(vbool4_t vm, __bf16 *rs1, vuint32m8_t rs2,
+                      vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsoxei64(vbool64_t vm, __bf16 *rs1, vuint64m1_t rs2,
+                      vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsoxei64(vbool32_t vm, __bf16 *rs1, vuint64m2_t rs2,
+                      vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsoxei64(vbool16_t vm, __bf16 *rs1, vuint64m4_t rs2,
+                      vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsoxei64(vbool8_t vm, __bf16 *rs1, vuint64m8_t rs2,
+                      vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsuxei8(vbool64_t vm, __bf16 *rs1, vuint8mf8_t rs2,
+                     vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsuxei8(vbool32_t vm, __bf16 *rs1, vuint8mf4_t rs2,
+                     vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsuxei8(vbool16_t vm, __bf16 *rs1, vuint8mf2_t rs2,
+                     vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsuxei8(vbool8_t vm, __bf16 *rs1, vuint8m1_t rs2,
+                     vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsuxei8(vbool4_t vm, __bf16 *rs1, vuint8m2_t rs2,
+                     vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsuxei8(vbool2_t vm, __bf16 *rs1, vuint8m4_t rs2,
+                     vbfloat16m8_t vs3, size_t vl);
+void __riscv_vsuxei16(vbool64_t vm, __bf16 *rs1, vuint16mf4_t rs2,
+                      vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsuxei16(vbool32_t vm, __bf16 *rs1, vuint16mf2_t rs2,
+                      vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsuxei16(vbool16_t vm, __bf16 *rs1, vuint16m1_t rs2,
+                      vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsuxei16(vbool8_t vm, __bf16 *rs1, vuint16m2_t rs2,
+                      vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsuxei16(vbool4_t vm, __bf16 *rs1, vuint16m4_t rs2,
+                      vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsuxei16(vbool2_t vm, __bf16 *rs1, vuint16m8_t rs2,
+                      vbfloat16m8_t vs3, size_t vl);
+void __riscv_vsuxei32(vbool64_t vm, __bf16 *rs1, vuint32mf2_t rs2,
+                      vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsuxei32(vbool32_t vm, __bf16 *rs1, vuint32m1_t rs2,
+                      vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsuxei32(vbool16_t vm, __bf16 *rs1, vuint32m2_t rs2,
+                      vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsuxei32(vbool8_t vm, __bf16 *rs1, vuint32m4_t rs2,
+                      vbfloat16m2_t vs3, size_t vl);
+void __riscv_vsuxei32(vbool4_t vm, __bf16 *rs1, vuint32m8_t rs2,
+                      vbfloat16m4_t vs3, size_t vl);
+void __riscv_vsuxei64(vbool64_t vm, __bf16 *rs1, vuint64m1_t rs2,
+                      vbfloat16mf4_t vs3, size_t vl);
+void __riscv_vsuxei64(vbool32_t vm, __bf16 *rs1, vuint64m2_t rs2,
+                      vbfloat16mf2_t vs3, size_t vl);
+void __riscv_vsuxei64(vbool16_t vm, __bf16 *rs1, vuint64m4_t rs2,
+                      vbfloat16m1_t vs3, size_t vl);
+void __riscv_vsuxei64(vbool8_t vm, __bf16 *rs1, vuint64m8_t rs2,
+                      vbfloat16m2_t vs3, size_t vl);
 void __riscv_vsoxei8(vbool64_t vm, _Float16 *rs1, vuint8mf8_t rs2,
                      vfloat16mf4_t vs3, size_t vl);
 void __riscv_vsoxei8(vbool32_t vm, _Float16 *rs1, vuint8mf4_t rs2,
@@ -3309,6 +3645,18 @@ void __riscv_vsuxei64(vbool8_t vm, uint64_t *rs1, vuint64m8_t rs2,
 [,c]
 ----
 // masked functions
+vbfloat16mf4_t __riscv_vle16ff(vbool64_t vm, const __bf16 *rs1, size_t *new_vl,
+                               size_t vl);
+vbfloat16mf2_t __riscv_vle16ff(vbool32_t vm, const __bf16 *rs1, size_t *new_vl,
+                               size_t vl);
+vbfloat16m1_t __riscv_vle16ff(vbool16_t vm, const __bf16 *rs1, size_t *new_vl,
+                              size_t vl);
+vbfloat16m2_t __riscv_vle16ff(vbool8_t vm, const __bf16 *rs1, size_t *new_vl,
+                              size_t vl);
+vbfloat16m4_t __riscv_vle16ff(vbool4_t vm, const __bf16 *rs1, size_t *new_vl,
+                              size_t vl);
+vbfloat16m8_t __riscv_vle16ff(vbool2_t vm, const __bf16 *rs1, size_t *new_vl,
+                              size_t vl);
 vfloat16mf4_t __riscv_vle16ff(vbool64_t vm, const _Float16 *rs1, size_t *new_vl,
                               size_t vl);
 vfloat16mf2_t __riscv_vle16ff(vbool32_t vm, const _Float16 *rs1, size_t *new_vl,

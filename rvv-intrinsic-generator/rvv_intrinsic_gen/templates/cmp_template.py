@@ -55,7 +55,7 @@ def render(G,
 
       args["MLEN"] = type_helper.mlen
 
-      if data_type == "float":
+      if data_type == "float" or data_type == "bfloat":
         if op2 == "s":
           args["OP2"] = "f"
           inst_type = InstType.VVF
@@ -72,13 +72,18 @@ def render(G,
         if args["OP"] not in ["eq", "ne"] and data_type == "uint":
           op = op + "u"
 
+      if data_type == "bfloat":
+        pref = "xl_"
+      else:
+        pref = ""
+      
       args["OP"] = "v" + op
       inst_info = InstInfo.get(
           args, decorator, inst_type, required_ext=required_ext_list)
       if op2 == "v":
         G.func(
             inst_info,
-            name="{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}_b{MLEN}".format_map(args) +
+            name=pref + "{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}_b{MLEN}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.m,
             **decorator.mask_args(type_helper.m, type_helper.m),
@@ -89,7 +94,7 @@ def render(G,
       else:  # vx, vf
         G.func(
             inst_info,
-            name="{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}_b{MLEN}".format_map(args) +
+            name=pref + "{OP}_v{OP2}_{TYPE}{SEW}m{LMUL}_b{MLEN}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.m,
             **decorator.mask_args(type_helper.m, type_helper.m),

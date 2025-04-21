@@ -50,7 +50,7 @@ def render(G,
       if op in ["zext", "sext"]:
         break
 
-      if data_type in ["float"]:
+      if data_type in ["float","bfloat"]:
         args["S_TYPE"] = "f"
         args["OP"] = "f" + args["OP"]
         inst_type_vvsm = InstType.VVFM
@@ -96,6 +96,11 @@ def render(G,
         vv_args = copy.deepcopy(args)
         vv_args["OP"] = "v" + op
 
+      if data_type == "bfloat":
+        pref = "xl_"
+      else:
+        pref = ""
+
       if op == "merge":
         G.func(
             InstInfo.get(
@@ -104,7 +109,7 @@ def render(G,
                 InstType.VVVM,
                 extra_attr=extra_attr,
                 required_ext=required_ext_list),
-            name="{OP}_vvm_{TYPE}{SEW}m{LMUL}".format_map(vv_args) +
+            name=pref + "{OP}_vvm_{TYPE}{SEW}m{LMUL}".format_map(vv_args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.tu_dest_args(type_helper.v),
@@ -113,12 +118,12 @@ def render(G,
             v0=type_helper.m,
             vl=type_helper.size_t)
 
-        if data_type == "bfloat":
-          continue
+        # if data_type == "bfloat":
+        #   continue
 
         G.func(
             inst_info_vvsm,
-            name="{OP}_v{S_TYPE}m_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_v{S_TYPE}m_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.tu_dest_args(type_helper.v),
@@ -131,27 +136,27 @@ def render(G,
             InstInfo.get(
                 vv_args, decorator, InstType.VV,
                 required_ext=required_ext_list),
-            name="{OP}_v_v_{TYPE}{SEW}m{LMUL}".format_map(vv_args) +
+            name=pref + "{OP}_v_v_{TYPE}{SEW}m{LMUL}".format_map(vv_args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.tu_dest_args(type_helper.v),
             vs1=type_helper.v,
             vl=type_helper.size_t)
-        if data_type == "bfloat":
-          continue
+        # if data_type == "bfloat":
+        #   continue
         G.func(
             inst_info_vs,
-            name="{OP}_v_{S_TYPE}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_v_{S_TYPE}_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.tu_dest_args(type_helper.v),
             rs1=type_helper.s,
             vl=type_helper.size_t)
       elif op in ["sqrt", "rsqrt7", "rec7", "abs"]:
-        assert data_type == "float"
+        #assert data_type == "float"
         G.func(
             inst_info_vv,
-            name="{OP}_v_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_v_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.mask_args(type_helper.m, type_helper.v),
@@ -160,10 +165,10 @@ def render(G,
             **decorator.extra_csr_args(type_helper.uint),
             vl=type_helper.size_t)
       elif op == "class":
-        assert data_type == "float"
+        #assert data_type == "float"
         G.func(
             inst_info_vv,
-            name="{OP}_v_u{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_v_u{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.uiv,
             **decorator.mask_args(type_helper.m, type_helper.uiv),

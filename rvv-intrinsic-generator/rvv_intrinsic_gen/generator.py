@@ -258,10 +258,16 @@ class Generator(ABC):
     elif name in ["vlmul_trunc", "vlmul_ext"]:
       overloaded_name = name
     elif name.find("cvt") != -1:
-      if name.find("cvt_rod") != -1 or name.find("cvt_rtz") != -1:
-        overloaded_name = "_".join(sn[0:3])
+      if name.startswith("xl_"):
+        if name.find("cvt_rod") != -1 or name.find("cvt_rtz") != -1:
+          overloaded_name = "_".join(sn[0:4])
+        else:
+          overloaded_name = "_".join(sn[0:3])
       else:
-        overloaded_name = "_".join(sn[0:2])
+        if name.find("cvt_rod") != -1 or name.find("cvt_rtz") != -1:
+          overloaded_name = "_".join(sn[0:3])
+        else:
+          overloaded_name = "_".join(sn[0:2])        
     elif any(op in name for op in ["reinterpret", "vget"]):
       overloaded_name = "_".join([sn[0], sn[-1]])
     elif any(op in name for op in ["vlmul_ext", "vlmul_trunc"]):
@@ -278,9 +284,15 @@ class Generator(ABC):
       # 3. the signature of vmv series are similar, for example
       #    vmv_v_v_i8mf8    -> vint8mf8_t vmv(vint8mf8_t src, size_t vl)
       #    vmv_x_s_i8mf8_i8 -> int8_t     vmv(vint8mf8_t src)
-      overloaded_name = "_".join(sn[0:2])
+      if name.startswith("xl_"):
+        overloaded_name = "_".join(sn[0:3])
+      else:
+        overloaded_name = "_".join(sn[0:2])
     else:
-      overloaded_name = sn[0]
+      if name.startswith("xl_"):
+        overloaded_name = "_".join(sn[0:2])
+      else:
+        overloaded_name = sn[0]
     # append policy suffix if need
     if sn[-1] in [
         "ta", "tu", "tama", "tuma", "tamu", "tumu", "ma", "mu", "tam", "tum"

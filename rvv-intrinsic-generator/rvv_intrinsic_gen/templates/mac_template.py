@@ -81,6 +81,11 @@ def render(G,
           InstType.VVX,
           extra_attr=ExtraAttr.MAC,
           required_ext=required_ext_list)
+      
+      if data_type == "bfloat":
+        pref = "xl_"
+      else:
+        pref = ""     
 
       type_helper = TypeHelper(**args)
       if (("maccsu" in op) or ("maccus" in op)) and data_type == "uint":
@@ -161,7 +166,7 @@ def render(G,
 
         G.func(
             inst_info_vv,
-            name="{OP}_vv_{TYPE}{WSEW}m{WLMUL}".format_map(args) +
+            name=pref + "{OP}_vv_{TYPE}{WSEW}m{WLMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=dst_type,
             **decorator.mask_args(type_helper.m, type_helper.v),
@@ -172,7 +177,7 @@ def render(G,
             vl=type_helper.size_t)
         G.func(
             inst_info_vs,
-            name="{OP}_v{S_TYPE}_{TYPE}{WSEW}m{WLMUL}".format_map(args) +
+            name=pref + "{OP}_v{S_TYPE}_{TYPE}{WSEW}m{WLMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=dst_type,
             **decorator.mask_args(type_helper.m, type_helper.v),
@@ -184,7 +189,7 @@ def render(G,
       else:
         G.func(
             inst_info_vv,
-            name="{OP}_vv_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_vv_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.mask_args(type_helper.m, type_helper.v),
@@ -195,7 +200,7 @@ def render(G,
             vl=type_helper.size_t)
         G.func(
             inst_info_vs,
-            name="{OP}_v{S_TYPE}_{TYPE}{SEW}m{LMUL}".format_map(args) +
+            name=pref + "{OP}_v{S_TYPE}_{TYPE}{SEW}m{LMUL}".format_map(args) +
             decorator.func_suffix,
             return_type=type_helper.v,
             **decorator.mask_args(type_helper.m, type_helper.v),
